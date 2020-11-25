@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         HandleControls();
+        _rb.velocity = new Vector3(0, 0, 0); //new! prevents repelling of player from obstacles
     }
 
     private void HandleControls()
