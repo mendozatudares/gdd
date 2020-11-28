@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
 
     private void HandleControls()
     {
+        // Prevents player from drifting after repelling from obstacles
+        _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
+
         // Move player using WASD (currently multiplying by 0.1f to limit change per frame)
         var w = Input.GetKey(KeyCode.W) ? 1f : 0f;
         var a = Input.GetKey(KeyCode.A) ? 1f : 0f;
@@ -83,7 +86,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void OnCollisionStay()
+    void OnCollisionStay(Collision collision)
     {
         _isGrounded = true;
     }
