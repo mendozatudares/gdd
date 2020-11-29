@@ -1,0 +1,27 @@
+Audio
+enemy_bite.wav
+	http://soundbible.com/950-Bite.html
+	Title: Bite
+	License: Attribution 3.0
+	Recorded by Mike Koenig
+
+enemy_death.wav
+	http://soundbible.com/1040-Zombie-Gets-Attacked.html
+	Title: Zombie Gets Attacked
+	License: Attribution 3.0
+	Recorded by Mike Koenig 	
+
+enemy_groan.wav
+	http://soundbible.com/1059-Mummy-Zombie.html
+	Title: Mummy Zombie
+	License: Attribution 3.0
+	Recorded by Mike Koenig
+
+enemy_moan.wav
+	http://soundbible.com/1035-Zombie-Moan.html
+	Title: Zombie Moan
+	License: Attribution 3.0
+	Recorded by Mike Koenig 
+
+
+
