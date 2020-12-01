@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Assets.Code;
 // ReSharper disable UnusedMember.Local
 // ReSharper disable UnusedMember.Global
 // ReSharper disable CheckNamespace
@@ -37,6 +38,22 @@ public class Player : MonoBehaviour
         // Prevents player from drifting after repelling from obstacles
         _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
 
+        // Pause the game
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (LevelManager.Ctx.paused)
+            {
+                LevelManager.Ctx.UnPause();
+            }
+            else
+            {
+                LevelManager.Ctx.Pause();
+            }
+        }
+
+        // If paused, ignore control input
+        if (LevelManager.Ctx.paused) return;
+
         // Move player using WASD (currently multiplying by 0.1f to limit change per frame)
         var w = Input.GetKey(KeyCode.W) ? 1f : 0f;
         var a = Input.GetKey(KeyCode.A) ? 1f : 0f;
@@ -59,10 +76,11 @@ public class Player : MonoBehaviour
         var playerPos = Camera.main.WorldToScreenPoint(transform.position);
         var dir = mousePos - playerPos;
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
+        transform.rotation = Quaternion.AngleAxis(-angle, Vector3.up);
 
         // Fire if the left mouse button is clicked and enough time has passed
         if (!Input.GetKeyDown(KeyCode.Mouse0) || (Time.time - _lastFire) < FireTime) return;
+
         _lastFire = Time.time;
         Fire();
     }
@@ -82,6 +100,7 @@ public class Player : MonoBehaviour
         if (collision.transform.name.Contains("Enemy"))
         {
             // _as.PlayOneShot(DeathAudioClip, 0.7f);
+            LevelManager.Ctx.GameOver();
             Destroy(gameObject);
         }
     }
