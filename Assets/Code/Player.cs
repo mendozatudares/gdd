@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
         var playerPos = Camera.main.WorldToScreenPoint(transform.position);
         var dir = mousePos - playerPos;
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
+        transform.rotation = Quaternion.AngleAxis(-angle, Vector3.up);
 
         // Fire if the left mouse button is clicked and enough time has passed
         if (!Input.GetKeyDown(KeyCode.Mouse0) || (Time.time - _lastFire) < FireTime) return;
