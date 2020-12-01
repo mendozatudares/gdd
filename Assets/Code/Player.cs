@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
         // Prevents player from drifting after repelling from obstacles
         _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
 
-        //Pause the game
+        // Pause the game
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (LevelManager.Ctx.paused)
@@ -51,6 +51,9 @@ public class Player : MonoBehaviour
             }
         }
 
+        // If paused, ignore control input
+        if (LevelManager.Ctx.paused) return;
+
         // Move player using WASD (currently multiplying by 0.1f to limit change per frame)
         var w = Input.GetKey(KeyCode.W) ? 1f : 0f;
         var a = Input.GetKey(KeyCode.A) ? 1f : 0f;
@@ -58,7 +61,6 @@ public class Player : MonoBehaviour
         var d = Input.GetKey(KeyCode.D) ? 1f : 0f;
         var vertical = w - s;
         var horizontal = d - a;
-        Speed = LevelManager.Ctx.paused ? 0f : 1.0f;
         Vector3 temp = new Vector3(horizontal, 0, vertical).normalized * Speed * 0.1f;
         _rb.MovePosition(_rb.transform.position + temp);
 
@@ -77,7 +79,7 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(-angle, Vector3.up);
 
         // Fire if the left mouse button is clicked and enough time has passed
-        if (!Input.GetKeyDown(KeyCode.Mouse0) || (Time.time - _lastFire) < FireTime || (LevelManager.Ctx.paused)) return;
+        if (!Input.GetKeyDown(KeyCode.Mouse0) || (Time.time - _lastFire) < FireTime) return;
 
         _lastFire = Time.time;
         Fire();
