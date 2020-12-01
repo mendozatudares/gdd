@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Code;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -35,7 +36,7 @@ public class Enemy : MonoBehaviour
 
     void EnemyMove()
     {
-        if (GameObject.Find("Player") != null)
+        if (GameObject.Find("Player") != null && !LevelManager.Ctx.paused)
         {
             Vector3 movement = GameObject.Find("Player").transform.position - transform.position;
             movement.Normalize();
