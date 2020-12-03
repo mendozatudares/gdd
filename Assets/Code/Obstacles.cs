@@ -22,10 +22,10 @@ public class Obstacles : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.name.Contains("Bullet"))
-        {
-            // _as.PlayOneShot(ExplosionAudioClip, 0.7f);
-            Destroy(gameObject);
-        }
+        // if (collision.transform.name.Contains("Bullet"))
+        // {
+        //     // _as.PlayOneShot(ExplosionAudioClip, 0.7f);
+        //     Destroy(gameObject);
+        // }
     }
 }

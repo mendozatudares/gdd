@@ -1,37 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
     private Rigidbody _rb;
-    private Vector3 OriginPoint;
+    private Vector3 _origin;
 
     // Start is called before the first frame update
     void Start()
     {
+        GetComponent<Renderer>().material.color = Color.green;
         _rb = GetComponent<Rigidbody>();
-        OriginPoint = transform.position;
+        _origin = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float distance = Vector3.Distance(OriginPoint, transform.position);
+        var distance = Vector3.Distance(_origin, transform.position);
         if (distance > 10)
             Destroy(gameObject);
+        else
+            _rb.MovePosition(transform.TransformPoint(1f, 0, 0));
     }
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "enemy")
-        {
+        if (other.gameObject.name.Contains("Enemy"))
             Score.UpdateScore();
-            Destroy(gameObject);
-            Destroy(other.gameObject);
-        }
-        else
-            Destroy(gameObject);
+        Destroy(gameObject);
     }
 }
 

@@ -1,29 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Code;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-    private static int score;
-    private static Text scoreText;
+    private static int _score;
+    private static Text _scoreText;
+    private static int _goal;
 
     // Start is called before the first frame update
     void Start()
     {
-        scoreText = GetComponent<Text>();
-        score = 0;
+        _scoreText = GetComponent<Text>();
+        _score = 0;
+        _goal = Camera.main.GetComponent<LevelManager>().enemyNumber;
         UpdateText();
     }
 
     public static void UpdateScore()
     {
-        score += 1;
+        _score += 1;
         UpdateText();
+        if (_score >= _goal)
+            Camera.main.GetComponent<LevelManager>().NextLevel();
     }
 
     private static void UpdateText()
     {
-        scoreText.text = string.Format("Score: {0}", score);
+        _scoreText.text = $"Score: {_score}";
     }
 }

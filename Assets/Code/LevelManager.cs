@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Assets.Code;
 using UnityEngine.SceneManagement;
+using GameObject = UnityEngine.GameObject;
 
 namespace Assets.Code
 {
@@ -14,15 +15,12 @@ namespace Assets.Code
         private MenuManager menus;
 
         public int level;
-
         public int enemyNumber;
-
         public bool paused = false;
-
         public GameObject enemyPrefab;
 
         private int enemiesSpawned = 0;
-        private Vector3 spawnPoint;
+        private List<Vector3> spawnPoints;
         private float spawnTimer = 2;
         private float currTimer = 2;
         private System.Random random = new System.Random();
@@ -38,7 +36,10 @@ namespace Assets.Code
             }
             else
             {
-                spawnPoint = GameObject.Find("Enemy").transform.position;
+                spawnPoints = new List<Vector3>();
+                foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+                    if (enemy)
+                        spawnPoints.Add(enemy.transform.position);
             }
             
         }
@@ -56,8 +57,7 @@ namespace Assets.Code
 
         void SpawnEnemy()
         {
-            Instantiate(enemyPrefab, spawnPoint,
-                transform.rotation); //[random.Next(spawnPoints.Length)], transform.rotation);
+            Instantiate(enemyPrefab, spawnPoints[random.Next(spawnPoints.Count)], transform.rotation);
         }
 
         public void Pause()

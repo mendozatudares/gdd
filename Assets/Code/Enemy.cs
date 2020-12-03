@@ -1,14 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Code;
+﻿using Assets.Code;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
+    public float Speed = 0.5f;
     private AudioSource _as;
     private Rigidbody _rb;
-    public float Speed = 0.5f;
+    private int _groan;
+    private float _lastGroan;
+    public AudioClip DeathAudioClip;
+    public AudioClip GroanAudioClip;
 
     // Start is called before the first frame update
     void Start()
@@ -16,20 +17,23 @@ public class Enemy : MonoBehaviour
         GetComponent<Renderer>().material.color = Color.red;
         _as = GetComponent<AudioSource>();
         _rb = GetComponent<Rigidbody>();
-
+        _groan = Random.Range(1, 5);
     }
 
     // Update is called once per frame
     void Update()
     {
         EnemyMove();
+        // if (Time.time - _lastGroan < _groan || Random.value > 0.1) return;
+        // _lastGroan = Time.time;
+        // _as.PlayOneShot(GroanAudioClip, 0.7f);
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.name.Contains("Bullet"))
         {
-            // _as.PlayOneShot(EnemyAudioClip, 0.7f);
+            // _as.PlayOneShot(DeathAudioClip, 0.7f);
             Destroy(gameObject);
         }
     }
