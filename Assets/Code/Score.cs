@@ -22,7 +22,7 @@ public class Score : MonoBehaviour
         _score += 1;
         UpdateText();
         if (_score >= _goal)
-            Camera.main.GetComponent<LevelManager>().NextLevel();
+            Camera.main.GetComponent<LevelManager>().CallNextLevel();
     }
 
     private static void UpdateText()

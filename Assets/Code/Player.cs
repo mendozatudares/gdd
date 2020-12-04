@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using Assets.Code;
 // ReSharper disable UnusedMember.Local
 // ReSharper disable UnusedMember.Global
@@ -88,7 +89,7 @@ public class Player : MonoBehaviour
 
     private void Fire()
     {
-        _as.PlayOneShot(FireAudioClip, 0.7f);
+        _as.PlayOneShot(FireAudioClip, 0.5f);
         // Make a new bullet in front of player
         Instantiate(BulletPrefab,
             transform.TransformPoint(new Vector3(1f, 0, 0)),
@@ -101,12 +102,8 @@ public class Player : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(DeathAudioClip, transform.position);
             Destroy(gameObject);
-            LevelManager.Ctx.GameOver();
+            LevelManager.Ctx.CallGameOver();
         }
-    }
-
-    void OnCollisionStay(Collision collision)
-    {
         _isGrounded = true;
     }
 }
