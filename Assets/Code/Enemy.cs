@@ -4,7 +4,6 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float Speed = 0.5f;
-    private AudioSource _as;
     private Rigidbody _rb;
     private int _groan;
     private float _lastGroan;
@@ -15,25 +14,24 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         GetComponent<Renderer>().material.color = Color.red;
-        _as = GetComponent<AudioSource>();
         _rb = GetComponent<Rigidbody>();
-        _groan = Random.Range(1, 5);
+        _groan = Random.Range(2, 6);
     }
 
     // Update is called once per frame
     void Update()
     {
         EnemyMove();
-        // if (Time.time - _lastGroan < _groan || Random.value > 0.1) return;
-        // _lastGroan = Time.time;
-        // _as.PlayOneShot(GroanAudioClip, 0.7f);
+        if (Time.time - _lastGroan < _groan || Random.value > 0.1) return;
+        _lastGroan = Time.time;
+        AudioSource.PlayClipAtPoint(GroanAudioClip, transform.position);
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.name.Contains("Bullet"))
         {
-            // _as.PlayOneShot(DeathAudioClip, 0.7f);
+            AudioSource.PlayClipAtPoint(DeathAudioClip, transform.position);
             Destroy(gameObject);
         }
     }
