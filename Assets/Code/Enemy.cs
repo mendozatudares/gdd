@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     {
         GetComponent<Renderer>().material.color = Color.red;
         _rb = GetComponent<Rigidbody>();
-        _groan = Random.Range(2, 6);
+        _groan = Random.Range(1, 5);
     }
 
     // Update is called once per frame

@@ -99,9 +99,9 @@ public class Player : MonoBehaviour
     {
         if (collision.transform.name.Contains("Enemy"))
         {
-            _as.PlayOneShot(DeathAudioClip, 0.7f);
-            LevelManager.Ctx.GameOver();
+            AudioSource.PlayClipAtPoint(DeathAudioClip, transform.position);
             Destroy(gameObject);
+            LevelManager.Ctx.GameOver();
         }
     }
 
