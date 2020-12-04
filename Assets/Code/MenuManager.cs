@@ -13,6 +13,7 @@ namespace Assets.Code
 
         private WelcomeMenu _welcome;
         private PauseMenu _pause;
+        private InstructionMenu _instruction;
 
         public bool InWelcome
         {
@@ -29,6 +30,31 @@ namespace Assets.Code
         {
             _welcome = new WelcomeMenu();
             _welcome.Show();
+        }
+
+        public void ShowInstructions()
+        {
+            _instruction = new InstructionMenu();
+            _instruction.Show();
+            GameObject start = GameObject.Find("New");
+            start.SetActive(false);
+            GameObject load = GameObject.Find("Load");
+            load.SetActive(false);
+            GameObject ins = GameObject.Find("Instructions");
+            ins.SetActive(false);
+            _welcome.Hide();
+            Button back = GameObject.FindGameObjectWithTag("Back").GetComponent<Button>();
+            /*if (button.name == "Back")
+            {
+                button.onClick.AddListener(LevelManager.Ctx.Menu);
+            }*/
+            back.onClick.AddListener(LevelManager.Ctx.Menu);
+
+        }
+
+        public void HideInstructions()
+        {
+            _instruction.Hide();
         }
 
         public void ShowPause()
@@ -84,6 +110,10 @@ namespace Assets.Code
                     {
                         button.onClick.AddListener(LevelManager.Ctx.LoadLevel);
                     }
+                    else if (button.name == "Instructions")
+                    {
+                        button.onClick.AddListener(LevelManager.Ctx.Instructions);
+                    }
                 }
             }
         }
@@ -94,6 +124,16 @@ namespace Assets.Code
             {
                 Object menuPrefab = Resources.Load("Menus/Pause");
                 thisGO = (GameObject) Instantiate(menuPrefab);
+                thisGO.transform.SetParent(Canvas, false);
+            }
+        }
+
+        private class InstructionMenu : Menu
+        {
+            public InstructionMenu()
+            {
+                Object menuPrefab = Resources.Load("Menus/Instructions");
+                thisGO = (GameObject)Instantiate(menuPrefab);
                 thisGO.transform.SetParent(Canvas, false);
             }
         }

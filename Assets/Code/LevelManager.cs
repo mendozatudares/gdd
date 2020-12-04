@@ -61,6 +61,16 @@ namespace Assets.Code
             Instantiate(enemyPrefab, spawnPoints[random.Next(spawnPoints.Count)], transform.rotation);
         }
 
+        public void Instructions()
+        {
+            menus.ShowInstructions();
+        }
+
+        public void Menu()
+        {
+            SceneManager.LoadScene("Main");
+        }
+
         public void Pause()
         {
             paused = true;
