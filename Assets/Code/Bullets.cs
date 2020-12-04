@@ -2,6 +2,7 @@
 
 public class Bullets : MonoBehaviour
 {
+    public AudioClip ExplodeAudioClip;
     private Rigidbody _rb;
     private Vector3 _origin;
 
@@ -27,6 +28,8 @@ public class Bullets : MonoBehaviour
     {
         if (other.gameObject.name.Contains("Enemy"))
             Score.UpdateScore();
+        else
+            AudioSource.PlayClipAtPoint(ExplodeAudioClip, transform.position);
         Destroy(gameObject);
     }
 }

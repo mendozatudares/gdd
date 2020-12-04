@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da39f1c13a1a7eb498aad7bb708683b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ExplodeAudioClip: {fileID: 8300000, guid: a22dad6ce1f29f543bfcb6b40ba880a7, type: 3}
 --- !u!54 &3035039365449864425
 Rigidbody:
   m_ObjectHideFlags: 0
