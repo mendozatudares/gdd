@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using Assets.Code;
 // ReSharper disable UnusedMember.Local
 // ReSharper disable UnusedMember.Global
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GetComponent<Renderer>().material.color = Color.blue;
         _rb = GetComponent<Rigidbody>();
         _jump = new Vector3(0, JumpForce, 0);
         _as = GetComponent<AudioSource>();
@@ -87,26 +89,21 @@ public class Player : MonoBehaviour
 
     private void Fire()
     {
-        Debug.Log("Fire!");
-        // _as.PlayOneShot(FireAudioClip, 0.7f);
+        _as.PlayOneShot(FireAudioClip, 0.5f);
         // Make a new bullet in front of player
-        // Instantiate(BulletPrefab,
-        //     transform.TransformPoint(new Vector3(1f, 0, 0)),
-        //     transform.rotation);
+        Instantiate(BulletPrefab,
+            transform.TransformPoint(new Vector3(1f, 0, 0)),
+            transform.rotation);
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.name.Contains("Enemy"))
         {
-            // _as.PlayOneShot(DeathAudioClip, 0.7f);
-            LevelManager.Ctx.GameOver();
+            AudioSource.PlayClipAtPoint(DeathAudioClip, transform.position);
             Destroy(gameObject);
+            LevelManager.Ctx.CallGameOver();
         }
-    }
-
-    void OnCollisionStay(Collision collision)
-    {
         _isGrounded = true;
     }
 }

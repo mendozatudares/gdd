@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Assets.Code
 {
-    public partial class MenuManager : MonoBehaviour
+    public partial class MenuManager : MonoScript
     {
         public static Transform Canvas { get; private set; }
 
