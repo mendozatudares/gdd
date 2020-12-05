@@ -13,6 +13,7 @@ namespace Assets.Code
 
         public static LevelManager Ctx;
         private MenuManager menus;
+        private SaveLoad sav;
 
         public int level;
         public int enemyNumber;
@@ -24,11 +25,13 @@ namespace Assets.Code
         private float spawnTimer = 2;
         private float currTimer = 2;
         private System.Random random = new System.Random();
+        
 
         // Start is called before the first frame update
         void Start()
         {
             menus = new MenuManager();
+            sav = new SaveLoad();
             Ctx = this;
             if (Ctx.level == 0)
             {
@@ -36,6 +39,7 @@ namespace Assets.Code
             }
             else
             {
+                sav.Save();
                 spawnPoints = new List<Vector3>();
                 foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
                     if (enemy) spawnPoints.Add(enemy.transform.position);
@@ -93,9 +97,14 @@ namespace Assets.Code
             SceneManager.LoadScene("Level"+(level+1));
         }
 
+        public void LoadLevelByNumber(int lev)
+        {
+            SceneManager.LoadScene("Level" + lev);
+        }
+
         public void LoadLevel()
         {
-
+            sav.Load();
         }
 
         public void CallGameOver()
