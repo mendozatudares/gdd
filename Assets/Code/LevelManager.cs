@@ -94,7 +94,7 @@ namespace Assets.Code
 
         public void NextLevel()
         {
-            SceneManager.LoadScene("Level"+(level+1));
+            SceneManager.LoadScene(level == 5 ? "Main" : $"Level{level + 1}");
         }
 
         public void LoadLevelByNumber(int lev)
