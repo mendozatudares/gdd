@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Code;
+using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class Bullets : MonoBehaviour
         var distance = Vector3.Distance(_origin, transform.position);
         if (distance > 10)
             Destroy(gameObject);
-        else
+        else if (!LevelManager.Ctx.paused)
             _rb.MovePosition(transform.TransformPoint(1f, 0, 0));
     }
 
